@@ -1,4 +1,4 @@
-#include "quantized.h"
+#include "quantization.h"
 
 static size_t _get_q8_0_quantized_array_size(const quantized_array_t *quantized_array) {
     if (!quantized_array) return 0;
