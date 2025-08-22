@@ -25,14 +25,7 @@ The executable build/demo is built from test/main.c. It prints a per‑array rep
 The library exposes a small, generic interface.
 
 ```c
-/* ---- Allocation helpers ------------------------------------------------ */
-quantized_array_t *allocate_q8_0_array(uint64_t num_elements,
-                                       uint64_t block_size);
-
-quantized_array_t *allocate_q4_0_array(uint64_t num_elements,
-                                       uint64_t block_size);
-
-/* ---- Core quantisation / dequantisation ------------------------------- */
+/* ---- Quantization / Dequantization ------------------------------- */
 int quantize(const float *float_array,
              uint64_t num_elements,
              uint8_t quantized_type,          /* 0 = q8_0, 1 = q4_0 */
@@ -45,14 +38,14 @@ int dequantize(const quantized_array_t *quantized_array,
 void free_quantized_array(quantized_array_t *quantized_array);
 size_t get_quantized_array_size(const quantized_array_t *quantized_array);
 
-/* ---- Quantised array struct -------------------------------------------- */
+/* ---- Quantized array struct -------------------------------------------- */
 typedef struct {
     uint8_t  quantized_type;  /* 0: q8_0, 1: q4_0, … */
     uint64_t num_elements;    /* original float count            */
     uint64_t num_blocks;      /* number of blocks                */
     uint64_t block_size;      /* elements per block              */
     float  *scales;           /* length = num_blocks             */
-    int8_t *data;             /* packed quantised data           */
+    int8_t *data;             /* packed quantized data           */
 } quantized_array_t;
 ```
 
