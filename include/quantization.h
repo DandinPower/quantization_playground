@@ -28,7 +28,7 @@ quantized_array_t *allocate_q4_0_array(uint64_t num_elements,
 
 void free_quantized_array(quantized_array_t *quantized_array);
 
-size_t get_quantized_array_size(const quantized_array_t *quantized_array);
+int64_t get_quantized_array_size(const quantized_array_t *quantized_array);
 
 int quantize(const float *float_array,
              uint64_t num_elements,

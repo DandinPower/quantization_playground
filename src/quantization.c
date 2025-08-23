@@ -1,6 +1,6 @@
 #include "quantization.h"
 
-static size_t _get_q8_0_quantized_array_size(const quantized_array_t *quantized_array) {
+static int64_t _get_q8_0_quantized_array_size(const quantized_array_t *quantized_array) {
     if (!quantized_array) return 0;
     return sizeof(uint8_t)        /* quantized_type   */
          + 3 * sizeof(uint64_t)   /* num_elements, num_blocks, block_size */
@@ -8,7 +8,7 @@ static size_t _get_q8_0_quantized_array_size(const quantized_array_t *quantized_
          + quantized_array->num_elements * sizeof(int8_t); /* data */
 }
 
-static size_t _get_q4_0_quantized_array_size(const quantized_array_t *quantized_array) {
+static int64_t _get_q4_0_quantized_array_size(const quantized_array_t *quantized_array) {
     if (!quantized_array) return 0;
 
     const uint64_t num_elements_for_data = (quantized_array->num_elements + 1) / 2;
@@ -18,7 +18,7 @@ static size_t _get_q4_0_quantized_array_size(const quantized_array_t *quantized_
         + num_elements_for_data * sizeof(int8_t);   /* packed data */
 }
 
-size_t get_quantized_array_size(const quantized_array_t *quantized_array) {
+int64_t get_quantized_array_size(const quantized_array_t *quantized_array) {
     if (!quantized_array) return 0;
     switch (quantized_array->quantized_type) {
         case 0: 
@@ -68,7 +68,7 @@ quantized_array_t *allocate_q4_0_array(uint64_t num_elements,
                  + num_blocks * sizeof(float)
                  + num_elements_for_data * sizeof(int8_t);
     
-    quantized_array_t *qa = calloc(1, total);
+    quantized_array_t *qa = (quantized_array_t*)calloc(1, total);
     if (!qa) return NULL;
 
     qa->quantized_type = 1;          /* q4_0 */
