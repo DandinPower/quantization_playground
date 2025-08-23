@@ -41,7 +41,7 @@ quantized_array_t *allocate_q8_0_array(uint64_t num_elements,
                  + num_blocks * sizeof(float)
                  + num_elements * sizeof(int8_t);
 
-    quantized_array_t *qa = calloc(1, total);
+    quantized_array_t *qa = (quantized_array_t*)calloc(1, total);
     if (!qa) return NULL;
 
     /* initialise the header fields */
