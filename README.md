@@ -34,7 +34,7 @@ The `test_sparsity` executable prints similar reports for sparsity:
    Sparse0.125: sparsity=0.125, size=2560.000 KB, B/W=5.00000, MAE=0.509918, MSE=0.354529, MaxAbs=9.999999
 ```
 
-The `test_real_example` processes a binary file (`example/example.bin`) with both quantization and sparsity, outputs recovered binaries, and prints metrics.
+The `test_real_example` processes a binary file (`example/activation_112_3584.bin`) with both quantization and sparsity, outputs recovered binaries, and prints metrics. The binary file format can refer to following repo: [activation_visualizer](https://github.com/DandinPower/decentralized_inference_benchmark_utils/tree/main/activation_visualizer).
 
 ## API Reference
 
