@@ -25,7 +25,7 @@ int main(void)
 {
     /* ---- configuration --------------------------------------------------- */
     const uint64_t X   = 10;            /* number of random arrays            */
-    const uint64_t N   = 4096;          /* length of each array               */
+    const uint64_t N   = 4194304;          /* length of each array               */
     const float  MINV = -10.0f;
     const float  MAXV =  10.0f;
     const unsigned int SEED = 12345;    /* deterministic seed                */
@@ -105,10 +105,10 @@ int main(void)
         double bw8 = 8.0 * size8_kb * 1024.0 / (double)N;
 
         printf("[array %llu] N=%llu, blocks=%llu, original_size=%.3f KB\n", k, N, qa4->num_blocks, N * sizeof(float) / 1024.0);
-        printf("   Q4_0:  size=%.3f KB, B/W=%.5f, MAE=%.6f, MSE=%.6f, MaxAbs=%.6f\n",
-               size4_kb, bw4, mae4, mse4, maxabs4);
         printf("   Q8_0:  size=%.3f KB, B/W=%.5f, MAE=%.6f, MSE=%.6f, MaxAbs=%.6f\n",
                size8_kb, bw8, mae8, mse8, maxabs8);
+        printf("   Q4_0:  size=%.3f KB, B/W=%.5f, MAE=%.6f, MSE=%.6f, MaxAbs=%.6f\n",
+               size4_kb, bw4, mae4, mse4, maxabs4);
 
         /* ---- clean ------------------------------------------------------- */
         free(y4);   
