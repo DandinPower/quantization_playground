@@ -28,13 +28,13 @@ REAL_TEST := $(BUILD_DIR)/test_real_example
 all: $(QUANT_TEST) $(SPARSE_TEST) $(REAL_TEST)
 
 $(QUANT_TEST): $(LIB_OBJS) $(BUILD_DIR)/test_quantization.o
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $(LDFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -o $@ $^ $(LDFLAGS)
 
 $(SPARSE_TEST): $(LIB_OBJS) $(BUILD_DIR)/test_sparsity.o
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $(LDFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -o $@ $^ $(LDFLAGS)
 
 $(REAL_TEST): $(LIB_OBJS) $(BUILD_DIR)/test_real_example.o
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $(LDFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -o $@ $^ $(LDFLAGS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c -o $@ $<
@@ -48,4 +48,4 @@ $(BUILD_DIR):
 clean:
 	rm -rf $(BUILD_DIR)
 	# Explicitly nuke exes if clean runs post-build
-	@rm -f $(QUANT_TEST) $(SPARSE_TEST)
+	@rm -f $(QUANT_TEST) $(SPARSE_TEST) $(REAL_TEST)

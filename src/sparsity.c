@@ -79,11 +79,10 @@ int compress(const float *float_array, uint16_t num_tokens, uint16_t num_feature
     *sparse_array = allocate_sparse_array(num_tokens, num_features, sparse_ratio);
     if (!*sparse_array) return 1;
 
-    sort_entry_t *entries = (sort_entry_t *)malloc(num_features * sizeof(sort_entry_t));
-    if (!entries) return 1;
-
 #pragma omp parallel for
     for (uint16_t cur_token_index = 0; cur_token_index < num_tokens; cur_token_index++) {
+        sort_entry_t *entries = (sort_entry_t *)malloc(num_features * sizeof(sort_entry_t));
+        
         uint32_t dense_base = (uint32_t)cur_token_index * num_features;
         uint32_t sparse_base = (uint32_t)cur_token_index * (*sparse_array)->num_sparse_features;
 
@@ -98,9 +97,10 @@ int compress(const float *float_array, uint16_t num_tokens, uint16_t num_feature
             (*sparse_array)->sparse_indices[sparse_base + keep_feature_index] = orig_index;
             (*sparse_array)->values[sparse_base + keep_feature_index] = float_array[dense_base + orig_index];
         }
+
+        free(entries);
     }
 
-    free(entries);
     return 0;
 }
 

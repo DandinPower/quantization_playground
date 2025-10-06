@@ -76,7 +76,7 @@ int main(void) {
 
     uint64_t N = n_tokens * n_embed;
     if (tensor_size != N * sizeof(float)) {
-        fprintf(stderr, "Tensor size mismatch: expected %llu bytes, got %llu\n", N * sizeof(float), tensor_size);
+        fprintf(stderr, "Tensor size mismatch: expected %lu bytes, got %lu\n", N * sizeof(float), tensor_size);
         fclose(fp);
         return EXIT_FAILURE;
     }
@@ -96,7 +96,7 @@ int main(void) {
     }
     fclose(fp);
 
-    printf("Loaded real example: tokens=%llu, embed=%llu, N=%llu\n", n_tokens, n_embed, N);
+    printf("Loaded real example: tokens=%lu, embed=%lu, N=%lu\n", n_tokens, n_embed, N);
 
     // Quantization variants
     const int qtypes[] = {0 /*q8_0*/, 1 /*q4_0*/};

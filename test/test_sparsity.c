@@ -43,7 +43,7 @@ int main(void) {
 
     /* ---- loop over each array ------------------------------------------- */
     for (uint64_t k = 0; k < X; ++k) {
-        printf("[array %llu] N=%llu (tokens=%u, features=%u), original_size=%.3f KB\n",
+        printf("[array %lu] N=%lu (tokens=%u, features=%u), original_size=%.3f KB\n",
                k, N, NUM_TOKENS, NUM_FEATURES, N * sizeof(float) / 1024.0);
 
         /* ---- loop over sparsity ratios ---------------------------------- */
@@ -53,7 +53,7 @@ int main(void) {
             sparse_array_t *sparse_array = NULL;
             /* ---- compress ------------------------------------------------- */
             if (compress(inputs[k], NUM_TOKENS, NUM_FEATURES, sparse_ratio, &sparse_array)) {
-                fprintf(stderr, "compress failed for array %llu, ratio %.2f\n", k, sparse_ratio);
+                fprintf(stderr, "compress failed for array %lu, ratio %.2f\n", k, sparse_ratio);
                 free_sparse_array(sparse_array);
                 free_random_float_arrays(inputs, X);
                 return EXIT_FAILURE;
@@ -62,14 +62,14 @@ int main(void) {
             /* ---- decompress ----------------------------------------------- */
             float *decomp = malloc(N * sizeof(float));
             if (!decomp) {
-                fprintf(stderr, "malloc failed for decomp buffer (array %llu, ratio %.2f)\n", k, sparse_ratio);
+                fprintf(stderr, "malloc failed for decomp buffer (array %lu, ratio %.2f)\n", k, sparse_ratio);
                 free_sparse_array(sparse_array);
                 free_random_float_arrays(inputs, X);
                 return EXIT_FAILURE;
             }
 
             if (decompress(sparse_array, decomp)) {
-                fprintf(stderr, "decompress failed for array %llu, ratio %.2f\n", k, sparse_ratio);
+                fprintf(stderr, "decompress failed for array %lu, ratio %.2f\n", k, sparse_ratio);
                 free(decomp);
                 free_sparse_array(sparse_array);
                 free_random_float_arrays(inputs, X);

@@ -42,7 +42,7 @@ int main(void)
         /* ---- q4_0 ------------------------------------------------------- */
         quantized_array_t *qa4 = NULL;
         if (quantize(inputs[k], N, 1 /*q4_0*/, &qa4) || !qa4) {
-            fprintf(stderr, "q4_0 quantisation failed on array %llu\n", k);
+            fprintf(stderr, "q4_0 quantisation failed on array %lu\n", k);
             free_random_float_arrays(inputs, X);
             return EXIT_FAILURE;
         }
@@ -56,7 +56,7 @@ int main(void)
         }
 
         if (dequantize(qa4, y4)) {
-            fprintf(stderr, "q4_0 dequantisation failed on array %llu\n", k);
+            fprintf(stderr, "q4_0 dequantisation failed on array %lu\n", k);
             free(y4);
             free_quantized_array(qa4);
             free_random_float_arrays(inputs, X);
@@ -69,7 +69,7 @@ int main(void)
         /* ---- q8_0 ------------------------------------------------------- */
         quantized_array_t *qa8 = NULL;
         if (quantize(inputs[k], N, 0 /*q8_0*/, &qa8) || !qa8) {
-            fprintf(stderr, "q8_0 quantisation failed on array %llu\n", k);
+            fprintf(stderr, "q8_0 quantisation failed on array %lu\n", k);
             free(y4);
             free_quantized_array(qa4);
             free_random_float_arrays(inputs, X);
@@ -87,7 +87,7 @@ int main(void)
         }
 
         if (dequantize(qa8, y8)) {
-            fprintf(stderr, "q8_0 dequantisation failed on array %llu\n", k);
+            fprintf(stderr, "q8_0 dequantisation failed on array %lu\n", k);
             free(y4); free(y8);
             free_quantized_array(qa4);
             free_quantized_array(qa8);
@@ -104,7 +104,7 @@ int main(void)
         double bw4 = 8.0 * size4_kb * 1024.0 / (double)N;   /* bits per weight */
         double bw8 = 8.0 * size8_kb * 1024.0 / (double)N;
 
-        printf("[array %llu] N=%llu, blocks=%llu, original_size=%.3f KB\n", k, N, qa4->num_blocks, N * sizeof(float) / 1024.0);
+        printf("[array %lu] N=%lu, blocks=%lu, original_size=%.3f KB\n", k, N, qa4->num_blocks, N * sizeof(float) / 1024.0);
         printf("   Q8_0:  size=%.3f KB, B/W=%.5f, MAE=%.6f, MSE=%.6f, MaxAbs=%.6f\n",
                size8_kb, bw8, mae8, mse8, maxabs8);
         printf("   Q4_0:  size=%.3f KB, B/W=%.5f, MAE=%.6f, MSE=%.6f, MaxAbs=%.6f\n",
