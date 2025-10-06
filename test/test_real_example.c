@@ -50,7 +50,7 @@ static int write_recovered_binary(const char *filename, uint8_t type, uint64_t n
 }
 
 int main(void) {
-    FILE *fp = fopen("example/example.bin", "rb");
+    FILE *fp = fopen("example/activation_112_3584.bin", "rb");
     if (!fp) {
         fprintf(stderr, "Failed to open input file example/example.bin\n");
         return EXIT_FAILURE;
@@ -152,8 +152,8 @@ int main(void) {
     }
 
     // Sparsity variants
-    const float ratios[] = {0.25f, 0.125f};
-    const char *rnames[] = {"sparse0.25", "sparse0.125"};
+    const float ratios[] = {0.10f, 0.05f};
+    const char *rnames[] = {"sparse0.10", "sparse0.05"};
     for (size_t i = 0; i < 2; ++i) {
         float ratio = ratios[i];
         const char *rname = rnames[i];
